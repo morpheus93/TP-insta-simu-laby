@@ -30,31 +30,13 @@ public class Data implements DataService {
 
 	@Override
 	public void moveBot(int indexBot, Action action) {
-		Position position = this.getSafePosition(indexBot);
-
-		if (null == position) {
-			return; // TODO throw Exception
+		Bot bot = this.getSafeBot(indexBot);
+		
+		if (null == bot) {
+			// TODO throw exception
 		}
-
-		switch (action) {
-		case UP:
-			position.setY(position.getY() + 1);
-			break;
-
-		case LEFT:
-			position.setX(position.getX() + 1);
-			break;
-
-		case DOWN:
-			position.setY(position.getY() - 1);
-			break;
-
-		case RIGHT:
-			position.setX(position.getX() - 1);
-			break;
-		}
-
-		this.bots.get(indexBot).setPosition(position);
+		
+		bot.move(action);
 	}
 
 	@Override
@@ -71,14 +53,44 @@ public class Data implements DataService {
 	public int getCaseId(int indexBot) {
 		Position position = this.getSafePosition(indexBot);
 
+		if (null == position) {
+			return -1; // TODO throw exception
+		}
+		
 		return this.labyrinth.getCaseId(position);
 	}
 
 	private Position getSafePosition(int indexBot) {
-		if (indexBot < 0 || this.bots.size() <= indexBot) {
-			return null;
+		Bot bot = this.getSafeBot(indexBot);
+		
+		if (null == bot) {
+			return null; // TODO throw exception
 		}
 
 		return this.bots.get(indexBot).getPosition();
+	}
+	
+	private Bot getSafeBot(int indexBot) {
+		if (indexBot < 0 || this.bots.size() <= indexBot) {
+			return null; // TODO throw exception
+		}
+
+		return this.bots.get(indexBot);
+	}
+
+	@Override
+	public ArrayList<Action> getHistories(int indexBot) {
+		Bot bot = this.getSafeBot(indexBot);
+
+		if (null == bot) {
+			return null; // TODO throw exception
+		}
+		
+		return bot.getHistories();
+	}
+
+	@Override
+	public int getCountBot() {
+		return this.bots.size();
 	}
 }
