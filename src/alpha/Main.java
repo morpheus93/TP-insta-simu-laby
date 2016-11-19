@@ -1,5 +1,6 @@
 package alpha;
 
+import javafx.scene.Group;
 import tools.HardCodedParameters;
 
 import specifications.DataService;
@@ -8,61 +9,62 @@ import specifications.ViewerService;
 
 import data.Data;
 import engine.Engine;
-import userInterface.Viewer;
+import userInterface.*;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
-import javafx.scene.paint.Color;
 
+import java.io.IOException;
 
 public class Main extends Application {
-	// ---VARIABLES---//
-	private static DataService data;
-	private static EngineService engine;
-	private static ViewerService viewer;
 
-	// ---EXECUTABLE---//
+	private static String screen1File = "/resources/menu.fxml";
+	private static String screen2File = "/resources/game.fxml";
+	private static String screen3File = "/resources/credits.fxml";
+
+	public static String screen1ID = "menu";
+	public static String screen2ID = "game";
+	public static String screen3ID = "credits";
+
 	public static void main(String[] args) {
-		data = new Data();
-		engine = new Engine();
-		viewer = new Viewer();
+		DataService data = new Data();
+		EngineService engine = new Engine();
+		ViewerService viewer = new Viewer();
 
-		//((Engine) engine).bindDataService(data);
 		((Viewer) viewer).bindReadService(data);
 
 		data.init();
 		engine.init();
 		viewer.init();
-
 		launch(args);
 	}
 
+	/**
+	 * Start method
+	 *
+	 * @param primaryStage Stage
+	 * @throws IOException
+	 */
 	@Override
-	public void start(Stage stage) {
-		final Scene scene = new Scene(((Viewer) viewer).getPanel());
+	public void start(Stage primaryStage) throws IOException {
 
-		scene.setFill(Color.CORNFLOWERBLUE);
+		ScreensController mainContainer = new ScreensController();
+		mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
+		mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
+		mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
+		mainContainer.setScreen(Main.screen1ID);
 
-		stage.setScene(scene);
-		stage.setWidth(HardCodedParameters.defaultWidth);
-		stage.setHeight(HardCodedParameters.defaultHeight);
-		
-		stage.setOnShown(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				engine.start();
-			}
-		});
+		Group root = new Group();
+		root.getChildren().addAll(mainContainer);
+		Scene scene = new Scene(root);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("Simulateur de Labyrinthe");
+		primaryStage.setMinWidth(HardCodedParameters.defaultWidth);
+		primaryStage.setMinHeight(HardCodedParameters.defaultHeight);
+		primaryStage.setMaxHeight(HardCodedParameters.defaultHeight);
+		primaryStage.setMaxWidth(HardCodedParameters.defaultWidth);
+		primaryStage.show();
 
-		stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-			@Override
-			public void handle(WindowEvent event) {
-				engine.stop();
-			}
-		});
-		stage.show();
 	}
 }
