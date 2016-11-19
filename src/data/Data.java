@@ -93,4 +93,15 @@ public class Data implements DataService {
 	public int getCountBot() {
 		return this.bots.size();
 	}
+
+	@Override
+	public boolean canMove(int indexBot, Action action) {
+		int caseId = this.getCaseId(indexBot);
+
+		if (-1 == caseId) {
+			return false; // TODO throw exception
+		}
+		
+		return this.labyrinth.canMove(caseId, action);
+	}
 }

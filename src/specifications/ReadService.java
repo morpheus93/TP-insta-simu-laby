@@ -16,4 +16,6 @@ public interface ReadService {
 	public ArrayList<Action> getHistories(int indexBot);
 	
 	public int getCountBot();
+	
+	public boolean canMove(int indexBot, Action action);
 }

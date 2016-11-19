@@ -5,10 +5,12 @@ import tools.HardCodedParameters;
 
 import specifications.DataService;
 import specifications.EngineService;
+import specifications.LabyrinthFactoryService;
 import specifications.ViewerService;
 
 import data.Data;
 import engine.Engine;
+import factory.LabyrinthFactory;
 import userInterface.*;
 
 import javafx.application.Application;
@@ -32,11 +34,16 @@ public class Main extends Application {
 		EngineService engine = new Engine();
 		ViewerService viewer = new Viewer();
 
+		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
+
 		((Viewer) viewer).bindReadService(data);
+		((Engine) engine).bindDataService(data);
+		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
 
 		data.init();
 		engine.init();
 		viewer.init();
+
 		launch(args);
 	}
 
