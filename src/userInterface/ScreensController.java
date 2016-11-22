@@ -2,6 +2,7 @@ package userInterface;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -40,6 +41,7 @@ public class ScreensController extends StackPane implements RequireReadService {
 	 */
 	public ScreensController() {
 		super();
+		System.out.println(System.getProperty("user.dir"));
 		screensURL.put(SCREEN_1_ID, SCREEN_1_FILE);
 		screensURL.put(SCREEN_2_ID, SCREEN_2_FILE);
 		screensURL.put(SCREEN_3_ID, SCREEN_3_FILE);
@@ -54,7 +56,7 @@ public class ScreensController extends StackPane implements RequireReadService {
 			String name = viewURL.getKey();
 			String url = viewURL.getValue();
 			try {
-				FXMLLoader myLoader = new FXMLLoader(getClass().getResource(url));
+				FXMLLoader myLoader = new FXMLLoader(this.getClass().getResource(url));
 				Parent loadScreen = myLoader.load();
 				ControlledScreen myScreenController = myLoader.getController();
 				screensControllers.put(name, myScreenController);
@@ -73,7 +75,7 @@ public class ScreensController extends StackPane implements RequireReadService {
 	 * If there isn't any screen being displayed, the new screen is just added to the root.
 	 *
 	 * @param name String
-	 * @return  Boolean
+	 * @return Boolean
 	 */
 	public boolean setScreen(final String name) {
 		if (screens.get(name) != null) {
@@ -112,8 +114,10 @@ public class ScreensController extends StackPane implements RequireReadService {
 
 	@Override
 	public void bindReadService(ReadService service) {
-		GameInterface controller = (GameInterface) screensControllers.get(SCREEN_2_ID);
-		controller.bindReadService(service);
+		if (screensControllers.get(SCREEN_2_ID) != null) {
+			GameInterface controller = (GameInterface) screensControllers.get(SCREEN_2_ID);
+			controller.bindReadService(service);
+		}
 	}
 
 	/**
@@ -127,6 +131,7 @@ public class ScreensController extends StackPane implements RequireReadService {
 
 	/**
 	 * Return current view controller
+	 *
 	 * @return ControlledScreen
 	 */
 	public ControlledScreen getCurrentViewController() {

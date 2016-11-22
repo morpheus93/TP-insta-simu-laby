@@ -20,18 +20,7 @@ import javafx.scene.Scene;
 
 public class Main extends Application {
 
-	private static DataService data = new Data();
-
 	public static void main(String[] args) {
-
-		EngineService engine = new Engine();
-		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
-
-		((Engine) engine).bindDataService(data);
-		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
-
-		data.init();
-		engine.init();
 		launch(args);
 	}
 
@@ -42,6 +31,15 @@ public class Main extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) {
+		DataService data = new Data();
+		EngineService engine = new Engine();
+		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
+
+		((Engine) engine).bindDataService(data);
+		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
+
+		data.init();
+		engine.init();
 
 		ScreensController mainContainer = new ScreensController();
 		mainContainer.loadViews();
