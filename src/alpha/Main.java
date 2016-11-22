@@ -1,12 +1,13 @@
 package alpha;
 
+import javafx.animation.AnimationTimer;
 import javafx.scene.Group;
+import tools.GameLogs;
 import tools.HardCodedParameters;
 
 import specifications.DataService;
 import specifications.EngineService;
 import specifications.LabyrinthFactoryService;
-import specifications.ViewerService;
 
 import data.Data;
 import engine.Engine;
@@ -17,33 +18,20 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
-import java.io.IOException;
-
 public class Main extends Application {
 
-	private static String screen1File = "/resources/menu.fxml";
-	private static String screen2File = "/resources/game.fxml";
-	private static String screen3File = "/resources/credits.fxml";
-
-	public static String screen1ID = "menu";
-	public static String screen2ID = "game";
-	public static String screen3ID = "credits";
+	private static DataService data = new Data();
 
 	public static void main(String[] args) {
-		DataService data = new Data();
-		EngineService engine = new Engine();
-		ViewerService viewer = new Viewer();
 
+		EngineService engine = new Engine();
 		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
 
-		((Viewer) viewer).bindReadService(data);
 		((Engine) engine).bindDataService(data);
 		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
 
 		data.init();
 		engine.init();
-		viewer.init();
-
 		launch(args);
 	}
 
@@ -51,17 +39,15 @@ public class Main extends Application {
 	 * Start method
 	 *
 	 * @param primaryStage Stage
-	 * @throws IOException
 	 */
 	@Override
-	public void start(Stage primaryStage) throws IOException {
+	public void start(Stage primaryStage) {
 
 		ScreensController mainContainer = new ScreensController();
-		mainContainer.loadScreen(Main.screen1ID, Main.screen1File);
-		mainContainer.loadScreen(Main.screen2ID, Main.screen2File);
-		mainContainer.loadScreen(Main.screen3ID, Main.screen3File);
-		mainContainer.setScreen(Main.screen1ID);
-
+		mainContainer.loadViews();
+		mainContainer.setScreen(ScreensController.SCREEN_1_ID);
+		mainContainer.bindReadService(data);
+		GameLogs.getInstance().addLog("Displaying menu");
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
 		Scene scene = new Scene(root);
@@ -72,6 +58,26 @@ public class Main extends Application {
 		primaryStage.setMaxHeight(HardCodedParameters.defaultHeight);
 		primaryStage.setMaxWidth(HardCodedParameters.defaultWidth);
 		primaryStage.show();
+		GameLogs.getInstance().addLog("Displaying window");
 
+		AnimationTimer guiTimer = new AnimationTimer() {
+			@Override
+			public void handle(long l) {
+				ControlledScreen controller = mainContainer.getCurrentViewController();
+				switch (mainContainer.getCurrentView()) {
+					case ScreensController.SCREEN_1_ID:
+						break;
+					case ScreensController.SCREEN_2_ID:
+						((GameInterface) controller).updateLogs();
+						break;
+					case ScreensController.SCREEN_3_ID:
+						break;
+					default:
+						GameLogs.getInstance().addLog("Unknown view");
+						break;
+				}
+			}
+		};
+		guiTimer.start();
 	}
 }

@@ -10,43 +10,39 @@
 <AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0"
             xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="userInterface.MenuInterface">
-    <children>
-        <VBox alignment="CENTER" prefHeight="222.0" prefWidth="301.0" spacing="20.0" AnchorPane.bottomAnchor="10.0"
-              AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <padding>
-                <Insets/>
-            </padding>
-            <children>
-                <Label text="Labyrinthe">
-                    <font>
-                        <Font size="18.0"/>
-                    </font>
-                </Label>
-                <HBox alignment="CENTER" prefHeight="57.0" prefWidth="281.0" spacing="20.0">
-                    <children>
-                        <ComboBox fx:id="comboBoxAlgo1" prefWidth="150.0" promptText="Algorythme 1">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Apple"/>
-                                    <String fx:value="Orange"/>
-                                    <String fx:value="Pear"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                        <ComboBox fx:id="comboBoxAlgo2" prefWidth="150.0" promptText="Algoryhtme 2">
-                            <items>
-                                <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Apple"/>
-                                    <String fx:value="Orange"/>
-                                    <String fx:value="Pear"/>
-                                </FXCollections>
-                            </items>
-                        </ComboBox>
-                    </children>
-                </HBox>
-                <Label fx:id="errorMessage" text="Veuillez séléctionner les 2 algorythmes afin de les comparer"/>
-                <Button mnemonicParsing="false" onAction="#goToGame" text="Simuler"/>
-            </children>
-        </VBox>
-    </children>
+    <VBox alignment="CENTER" prefHeight="222.0" prefWidth="301.0" spacing="20.0" AnchorPane.bottomAnchor="10.0"
+          AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+        <padding>
+            <Insets/>
+        </padding>
+        <Label text="Labyrinthe">
+            <font>
+                <Font size="18.0"/>
+            </font>
+        </Label>
+        <HBox alignment="CENTER" prefHeight="57.0" prefWidth="281.0" spacing="20.0">
+            <ComboBox fx:id="comboBoxAlgo1" prefWidth="150.0" promptText="Algorithme 1">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Dijkstra"/>
+                        <String fx:value="Trémeau"/>
+                        <String fx:value="Plaidge"/>
+                        <String fx:value="Random"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+            <ComboBox fx:id="comboBoxAlgo2" prefWidth="150.0" promptText="Algorihtme 2">
+                <items>
+                    <FXCollections fx:factory="observableArrayList">
+                        <String fx:value="Dijkstra"/>
+                        <String fx:value="Trémeau"/>
+                        <String fx:value="Plaidge"/>
+                        <String fx:value="Random"/>
+                    </FXCollections>
+                </items>
+            </ComboBox>
+        </HBox>
+        <Label fx:id="errorMessage" text="Veuillez séléctionner les 2 algorithmes afin de les comparer"/>
+        <Button mnemonicParsing="false" onAction="#goToGame" text="Simuler"/>
+    </VBox>
 </AnchorPane>

@@ -1,17 +1,17 @@
 package userInterface;
 
-import alpha.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import tools.GameLogs;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MenuInterface implements Initializable, ControlledScreen {
 
-	private ScreensController myController;
+	private ScreensController screensController;
 
 	@FXML
 	private ComboBox<String> comboBoxAlgo1;
@@ -32,8 +32,11 @@ public class MenuInterface implements Initializable, ControlledScreen {
 	}
 
 	public void setScreenParent(ScreensController screenParent) {
-		myController = screenParent;
+		screensController = screenParent;
 	}
+
+	@Override
+	public void init() { }
 
 	@FXML
 	private void goToGame() {
@@ -47,7 +50,11 @@ public class MenuInterface implements Initializable, ControlledScreen {
 
 		if (hasSelectedAlgo) {
 			errorMessage.setVisible(false);
-			myController.setScreen(Main.screen2ID);
+			GameLogs.getInstance().addLog("Algorithms selected");
+			GameLogs.getInstance().addLog("Algorithms 1 is " + algo1);
+			GameLogs.getInstance().addLog("Algorithms 2 is " + algo2);
+			// TODO : Send algos to Engine
+			screensController.setScreen(ScreensController.SCREEN_2_ID);
 		}
 	}
 }
