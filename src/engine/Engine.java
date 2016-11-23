@@ -97,9 +97,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		this.resolvers.add(
 				this.resolverFactory.getResolver(resolver, this.data.getLabyrinth(), this)
 		);
-		
 		Bot bot = new Bot(0, 0);
-
 		data.addBot(bot);
 	}
 }
