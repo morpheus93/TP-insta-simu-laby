@@ -66,7 +66,7 @@ public class Bot {
 
 		switch (action) {
 		case UP:
-			position.setY(position.getY() + 1);
+			position.setY(position.getY() - 1);
 			break;
 
 		case LEFT:
@@ -74,7 +74,7 @@ public class Bot {
 			break;
 
 		case DOWN:
-			position.setY(position.getY() - 1);
+			position.setY(position.getY() + 1);
 			break;
 
 		case RIGHT:
