@@ -71,7 +71,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		
 		int idCaseEnd = this.data.getLabyrinth().getCase(this.data.getLabyrinth().getSize() - 1).getId();
 		
-		for (int i = 0; i <= resolvers.size(); i++) {
+		for (int i = 0; i < resolvers.size(); i++) {
 			Position position = this.data.getBots().get(i).getPosition();
 			
 			if (this.data.getLabyrinth().getCaseId(position) == idCaseEnd) {
