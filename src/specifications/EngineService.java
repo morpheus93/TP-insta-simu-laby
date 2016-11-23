@@ -10,4 +10,6 @@ public interface EngineService {
 	public void stop();
 	
 	public void addResolver(Resolver resolver);
+	
+	public boolean isFinish();
 }

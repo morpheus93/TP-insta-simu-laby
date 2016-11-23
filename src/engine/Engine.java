@@ -18,6 +18,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import data.Bot;
+import data.Position;
 
 public class Engine implements EngineService, RequireDataService, RequireResolverFactoryService, RequireLabyrinthFactoryService, InfoService {
 	private Timer engineClock;
@@ -26,9 +27,11 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	private ResolverFactoryService resolverFactory;
 	private LabyrinthFactoryService labyrinthFactory;
 	private ArrayList<ResolverService> resolvers;
+	private boolean isFinish;
 
 	public Engine() {
 		this.currentIndexBot = 0;
+		this.isFinish = false;
 		this.resolvers = new ArrayList<ResolverService>();
 	}
 
@@ -47,7 +50,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 
 				currentIndexBot = 0;
 
-				for (ResolverService resolver : resolvers) {					
+				for (ResolverService resolver : resolvers) {
 					int currentCaseId = data.getCaseId(currentIndexBot);
 
 					Action action = resolver.step(currentCaseId);
@@ -58,8 +61,25 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 
 					currentIndexBot++;
 				}
+				
+				determineIfIsFinish();
 			}
 		}, 0, HardCodedParameters.enginePaceMillis);
+	}
+	
+	private void determineIfIsFinish() {
+		
+		int idCaseEnd = this.data.getLabyrinth().getCase(this.data.getLabyrinth().getSize() - 1).getId();
+		
+		for (int i = 0; i <= resolvers.size(); i++) {
+			Position position = this.data.getBots().get(i).getPosition();
+			
+			if (this.data.getLabyrinth().getCaseId(position) == idCaseEnd) {
+				this.isFinish = true;
+				this.stop();
+				break;
+			}
+		}
 	}
 
 	@Override
@@ -99,5 +119,9 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		);
 		Bot bot = new Bot(0, 0);
 		data.addBot(bot);
+	}
+	
+	public boolean isFinish() {
+		return this.isFinish;
 	}
 }

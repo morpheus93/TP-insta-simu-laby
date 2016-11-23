@@ -19,7 +19,7 @@ public class SmartRandomResolver extends Resolver {
 		Action action = Action.UP;
 		
 		do {
-			int rand = this.random.nextInt(3);
+			int rand = this.random.nextInt(4);
 
 			switch(rand) {
 			case 0:
