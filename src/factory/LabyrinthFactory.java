@@ -44,7 +44,7 @@ public class LabyrinthFactory implements LabyrinthFactoryService {
 		}
 
 		this.labyrinth.getCase(0).setStatus(Type.START);
-		this.labyrinth.getCase(this.labyrinth.getSize()).setStatus(Type.END);
+		this.labyrinth.getCase(this.labyrinth.getSize()-1).setStatus(Type.END);
 
 		return labyrinth;
 	}
@@ -66,7 +66,7 @@ public class LabyrinthFactory implements LabyrinthFactoryService {
 				return Action.RIGHT;
 	
 			default:
-				return Action.UP;
+				return Action.DOWN;
 		}
 	}
 
