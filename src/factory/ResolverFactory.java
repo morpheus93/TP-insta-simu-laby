@@ -11,23 +11,32 @@ public class ResolverFactory implements ResolverFactoryService {
 
 	@Override
 	public ResolverService getResolver(Resolver resolver, Labyrinth labyrinth, Engine engine) {
+		
+		ResolverService resolverService;
+		
 		switch(resolver) {
 			case ASTAR:
+				resolverService = new RandomResolver();
 				break;
 
 			case DEPTH_FIRST:
+				resolverService = new RandomResolver();
 				break;
 
 			case PLEDGE:
+				resolverService = new RandomResolver();
 				break;
 
 			case RANDOM:
-				return new RandomResolver();
-
+				resolverService = new RandomResolver();
+				break;
+				
 			default:
-				return null;
+				resolverService = new RandomResolver();
 		}
+
+		resolverService.init();
 		
-		return null;
+		return resolverService;
 	}
 }

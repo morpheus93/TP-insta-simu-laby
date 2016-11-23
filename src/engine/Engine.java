@@ -17,6 +17,8 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import data.Bot;
+
 public class Engine implements EngineService, RequireDataService, RequireResolverFactoryService, RequireLabyrinthFactoryService, InfoService {
 	private Timer engineClock;
 	private int currentIndexBot;
@@ -95,5 +97,9 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		this.resolvers.add(
 				this.resolverFactory.getResolver(resolver, this.data.getLabyrinth(), this)
 		);
+		
+		Bot bot = new Bot(0, 0);
+
+		data.addBot(bot);
 	}
 }
