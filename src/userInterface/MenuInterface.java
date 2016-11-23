@@ -76,6 +76,8 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 			this.engine.addResolver(this.algoList.get(algo1));
 			this.engine.addResolver(this.algoList.get(algo2));
 			screensController.setScreen(ScreensController.SCREEN_2_ID);
+			this.engine.start();
+			GameLogs.getInstance().addLog("Engine is started");
 		}
 	}
 

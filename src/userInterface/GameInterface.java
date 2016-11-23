@@ -2,6 +2,7 @@ package userInterface;
 
 import data.Case;
 import data.Labyrinth;
+import data.Position;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -105,11 +106,19 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 		}
 	}
 
-	public void drawBot() {
-		// TODO Draw bot
+	public void drawBots() {
 		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-		//		gc1.fillOval(10, 10, 10, 10);
-		//		gc2.fillOval(10, 10, 10, 10);
+		Position bot1Position = readService.getBots().get(0).getPosition();
+		Position bot2Position = readService.getBots().get(1).getPosition();
+		int sizeCell = ((int) canvas1.getWidth() / this.laby.getWidth() - 20);
+		int bot1X = bot1Position.getX() * sizeCell + sizeCell / 2;
+		int bot1Y = bot1Position.getY() * sizeCell + sizeCell / 2;
+		int bot2X = bot2Position.getX() * sizeCell + sizeCell / 2;
+		int bot2Y = bot2Position.getY() * sizeCell + sizeCell / 2;
+		gc1.fillOval(bot1X, bot1Y, 10, 10);
+		GameLogs.getInstance().addLog("Bot 1 moving");
+		gc2.fillOval(bot2X, bot2Y, 10, 10);
+		GameLogs.getInstance().addLog("Bot 2 moving");
 	}
 }

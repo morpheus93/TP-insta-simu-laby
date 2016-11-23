@@ -73,6 +73,7 @@ public class Main extends Application {
 					case ScreensController.SCREEN_1_ID:
 						break;
 					case ScreensController.SCREEN_2_ID:
+						((GameInterface) controller).drawBots();
 						((GameInterface) controller).updateLogs();
 						break;
 					case ScreensController.SCREEN_3_ID:
