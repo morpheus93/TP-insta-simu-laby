@@ -1,9 +1,7 @@
 package algorithm;
 
-import java.util.ArrayList;
 import java.util.Random;
 
-import specifications.ResolverService;
 import tools.Action;
 
 public class RandomResolver extends Resolver {
@@ -17,8 +15,24 @@ public class RandomResolver extends Resolver {
 
 	@Override
 	public Action step(int currentCaseId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
+
+		int action = this.random.nextInt(3);
+
+		switch(action) {
+		case 0:
+			return Action.UP;
+			
+		case 1:
+			return Action.DOWN;
+			
+		case 2:
+			return Action.LEFT;
+			
+		case 3:
+			return Action.RIGHT;
+			
+		default:
+			return Action.UP;
+		}
+	}	
 }

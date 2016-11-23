@@ -2,11 +2,14 @@ package algorithm;
 
 import java.util.ArrayList;
 
+import specifications.InfoService;
+import specifications.RequireInfoService;
 import specifications.ResolverService;
 
-public abstract class Resolver implements ResolverService {
-	ArrayList<Integer> caseVisited;
-	private String name;
+public abstract class Resolver implements ResolverService, RequireInfoService {
+	protected ArrayList<Integer> caseVisited;
+	protected String name;
+	protected InfoService info;
 	
 	private static int countResolver = 0;
 	
@@ -29,5 +32,10 @@ public abstract class Resolver implements ResolverService {
 	
 	public String getName() {
 		return this.name;
+	}
+	
+	@Override
+	public void bindInfoService(InfoService info) {
+		this.info = info;
 	}
 }

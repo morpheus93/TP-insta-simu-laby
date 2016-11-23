@@ -5,6 +5,7 @@ import tools.HardCodedParameters;
 import tools.Resolver;
 import specifications.DataService;
 import specifications.EngineService;
+import specifications.InfoService;
 import specifications.LabyrinthFactoryService;
 import specifications.RequireDataService;
 import specifications.RequireLabyrinthFactoryService;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class Engine implements EngineService, RequireDataService, RequireResolverFactoryService, RequireLabyrinthFactoryService {
+public class Engine implements EngineService, RequireDataService, RequireResolverFactoryService, RequireLabyrinthFactoryService, InfoService {
 	private Timer engineClock;
 	private int currentIndexBot;
 	private DataService data;
@@ -41,8 +42,20 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	public void start() {
 		engineClock.schedule(new TimerTask() {
 			public void run() {
-				// core
-				// TODO for each resolvers
+				
+				currentIndexBot = 0;
+				
+				for (ResolverService resolver : resolvers) {
+					currentIndexBot++;
+
+					int currentCaseId = data.getCaseId(currentIndexBot);
+
+					Action action = resolver.step(currentCaseId);
+
+					if (data.canMove(currentIndexBot, action)) {
+						data.moveBot(currentIndexBot, action);
+					}
+				}
 			}
 		}, 0, HardCodedParameters.enginePaceMillis);
 	}
@@ -80,7 +93,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	@Override
 	public void addResolver(Resolver resolver) {
 		this.resolvers.add(
-				this.resolverFactory.getResolver(resolver, this.data.getLabyrinth())
+				this.resolverFactory.getResolver(resolver, this.data.getLabyrinth(), this)
 		);
 	}
 }
