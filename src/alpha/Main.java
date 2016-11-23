@@ -89,7 +89,6 @@ public class Main extends Application {
 	@Override
 	public void stop() throws Exception {
 		super.stop();
-		// TODO : Quit program
-		Platform.setImplicitExit(true);
+		System.exit(0);
 	}
 }
