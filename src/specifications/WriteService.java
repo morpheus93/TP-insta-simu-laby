@@ -12,4 +12,8 @@ public interface WriteService {
 	public void moveBot(int indexBot, Action action);
 	
 	public void removeBot();
+
+	void reset();
+
+	void addStep();
 }

@@ -9,11 +9,13 @@ public class Bot {
 
 	private Position position;
 	private int nbStep;
+	private int countBack;
 	private String name;
 	private ArrayList<Action> histories;
 
 	public Bot(final int x, final int y) {
 		this.nbStep = 0;
+		this.countBack = 0;
 		this.position = new Position(x, y);
 		this.name = "Bot #" + Integer.toString(Bot.countBot);
 		this.histories = new ArrayList<Action>();
@@ -95,6 +97,8 @@ public class Bot {
 		if (indexLastAction < 0) {
 			return;
 		}
+		
+		this.countBack++;
 
 		Action lastAction = this.getHistories().get(indexLastAction);
 
@@ -120,5 +124,9 @@ public class Bot {
 		}
 
 		this.removeAction();
+	}
+
+	public int getCountBack() {
+		return this.countBack;
 	}
 }

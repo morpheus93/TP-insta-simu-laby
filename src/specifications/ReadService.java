@@ -18,4 +18,8 @@ public interface ReadService {
 	public int getCountBot();
 	
 	public boolean canMove(int indexBot, Action action);
+
+	int getStepCount();
+
+	int getCountBackForBor(int index);
 }

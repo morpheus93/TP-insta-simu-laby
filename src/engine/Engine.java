@@ -45,15 +45,15 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	public void reset() {
 		this.isFinish = false;
 		this.resolvers.removeAll(this.resolvers);
-		this.data.setLabyrinth(this.labyrinthFactory.getLabyrinth());
-		this.data.removeBot();
+		this.data.reset();
+		this.data.setLabyrinth(this.labyrinthFactory.getLabyrinth());		
 	}
 
 	@Override
 	public void start() {
 		engineClock.schedule(new TimerTask() {
 			public void run() {
-
+				data.addStep();
 				currentIndexBot = 0;
 
 				for (ResolverService resolver : resolvers) {

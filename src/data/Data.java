@@ -9,9 +9,11 @@ public class Data implements DataService {
 
 	private Labyrinth labyrinth;
 	private ArrayList<Bot> bots;
+	private int countStep;
 
 	public Data() {
 		this.bots = new ArrayList<Bot>();
+		this.countStep = 0;
 	}
 
 	@Override
@@ -31,7 +33,7 @@ public class Data implements DataService {
 	@Override
 	public void moveBot(int indexBot, Action action) {
 		Bot bot = this.getSafeBot(indexBot);
-		
+
 		if (null == bot) {
 			// TODO throw exception
 		}
@@ -108,5 +110,33 @@ public class Data implements DataService {
 	@Override
 	public void removeBot() {
 		this.bots.removeAll(this.bots);
+	}
+	
+	@Override
+	public void reset() {
+		this.labyrinth = null;
+		this.removeBot();
+		this.countStep = 0;
+	}
+	
+	@Override
+	public void addStep() {
+		this.countStep++;
+	}
+	
+	@Override
+	public int getStepCount() {
+		return this.countStep;
+	}
+	
+	@Override
+	public int getCountBackForBor(int index) {
+		Bot bot = this.getSafeBot(index);
+		
+		if (null == bot) {
+			return 0;
+		}
+		
+		return bot.getCountBack();
 	}
 }
