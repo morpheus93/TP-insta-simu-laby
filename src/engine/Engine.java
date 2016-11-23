@@ -44,7 +44,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	public void start() {
 		engineClock.schedule(new TimerTask() {
 			public void run() {
-				
+
 				currentIndexBot = 0;
 
 				for (ResolverService resolver : resolvers) {					
