@@ -1,5 +1,6 @@
 package userInterface;
 
+import data.Case;
 import data.Labyrinth;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -74,12 +75,41 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	private void drawLabyrinth() {
 		GameLogs.getInstance().addLog("Drawing labyrinth");
 		this.laby = readService.getLabyrinth();
-		GraphicsContext gc = canvas1.getGraphicsContext2D();
-		gc.fillOval(10, 10, 10, 10);
-		// TODO : Draw laby to canvas id : canvas1 and canvas2
+		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
+		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+		int sizeCell = ((int) canvas1.getWidth() / this.laby.getWidth() - 20);
+		int x = 0;
+		int y = 0;
+
+		gc1.strokeLine(0, 0, sizeCell * this.laby.getWidth(), 0);
+		gc2.strokeLine(0, 0, sizeCell * this.laby.getWidth(), 0);
+		gc1.strokeLine(0, 0, 0, sizeCell * this.laby.getHeight());
+		gc2.strokeLine(0, 0, 0, sizeCell * this.laby.getHeight());
+
+		for (int i = 0; i < this.laby.getSize(); i++) {
+			Case cell = this.laby.getCase(i);
+			x += sizeCell;
+
+			if (!cell.isRightIsOpen()) {
+				gc1.strokeLine(x, y, x, y + sizeCell);
+				gc2.strokeLine(x, y, x, y + sizeCell);
+			}
+			if (!cell.isDownIsOpen()) {
+				gc1.strokeLine(x - sizeCell, y + sizeCell, x, y + sizeCell);
+				gc2.strokeLine(x - sizeCell, y + sizeCell, x, y + sizeCell);
+			}
+			if (x == sizeCell * this.laby.getWidth()) {
+				x = 0;
+				y += sizeCell;
+			}
+		}
 	}
 
-	public void drawBot(){
+	public void drawBot() {
 		// TODO Draw bot
+		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
+		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+		//		gc1.fillOval(10, 10, 10, 10);
+		//		gc2.fillOval(10, 10, 10, 10);
 	}
 }
