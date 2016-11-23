@@ -1,6 +1,7 @@
 package engine;
 
 import tools.Action;
+import tools.GameLogs;
 import tools.HardCodedParameters;
 import tools.Resolver;
 import specifications.DataService;
@@ -60,6 +61,8 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 					int currentCaseId = data.getCaseId(currentIndexBot);
 
 					Action action = resolver.step(currentCaseId);
+					
+					log(action);
 
 					if (data.canMove(currentIndexBot, action)) {
 						data.moveBot(currentIndexBot, action);
@@ -71,6 +74,37 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 				determineIfIsFinish();
 			}
 		}, 0, HardCodedParameters.enginePaceMillis);
+	}
+	
+	private void log(Action action) {
+		
+		String str = "";
+		
+		switch(action) {
+		case UP:
+			str = "up";
+			break;
+			
+		case DOWN:
+			str = "down";
+			break;
+			
+		case LEFT:
+			str = "left";
+			break;
+			
+		case RIGHT:
+			str = "right";
+			break;
+			
+		case BACK:
+			str = "back";
+			break;
+		}
+
+		GameLogs.getInstance().addLog(
+			"Bot #" + Integer.toString(this.currentIndexBot) + " moving to " + str
+		);
 	}
 	
 	private void determineIfIsFinish() {
