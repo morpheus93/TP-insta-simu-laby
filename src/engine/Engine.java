@@ -2,13 +2,13 @@ package engine;
 
 import tools.Action;
 import tools.HardCodedParameters;
+import tools.Resolver;
 import specifications.DataService;
 import specifications.EngineService;
 import specifications.LabyrinthFactoryService;
 import specifications.RequireDataService;
 import specifications.RequireLabyrinthFactoryService;
 import specifications.RequireResolverFactoryService;
-import specifications.RequireResolverService;
 import specifications.ResolverFactoryService;
 import specifications.ResolverService;
 
@@ -75,5 +75,12 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	@Override
 	public void bindLabyrinthFactoryService(LabyrinthFactoryService service) {
 		this.labyrinthFactory = service;
+	}
+
+	@Override
+	public void addResolver(Resolver resolver) {
+		this.resolvers.add(
+				this.resolverFactory.getResolver(resolver, this.data.getLabyrinth())
+		);
 	}
 }
