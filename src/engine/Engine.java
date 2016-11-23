@@ -46,10 +46,8 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 			public void run() {
 				
 				currentIndexBot = 0;
-				
-				for (ResolverService resolver : resolvers) {
-					currentIndexBot++;
 
+				for (ResolverService resolver : resolvers) {					
 					int currentCaseId = data.getCaseId(currentIndexBot);
 
 					Action action = resolver.step(currentCaseId);
@@ -57,6 +55,8 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 					if (data.canMove(currentIndexBot, action)) {
 						data.moveBot(currentIndexBot, action);
 					}
+
+					currentIndexBot++;
 				}
 			}
 		}, 0, HardCodedParameters.enginePaceMillis);
