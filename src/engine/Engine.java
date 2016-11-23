@@ -39,8 +39,14 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 	public void init() {
 		engineClock = new Timer();
 		this.data.setLabyrinth(this.labyrinthFactory.getLabyrinth());
+	}
 
-		System.out.println(this.data.getLabyrinth()); // TODO : To remove
+	@Override
+	public void reset() {
+		this.isFinish = false;
+		this.resolvers.removeAll(this.resolvers);
+		this.data.setLabyrinth(this.labyrinthFactory.getLabyrinth());
+		this.data.removeBot();
 	}
 
 	@Override

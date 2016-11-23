@@ -10,4 +10,6 @@ public interface WriteService {
 	public void addBot(Bot bot);
 	
 	public void moveBot(int indexBot, Action action);
+	
+	public void removeBot();
 }

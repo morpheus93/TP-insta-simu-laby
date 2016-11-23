@@ -104,4 +104,9 @@ public class Data implements DataService {
 		
 		return this.labyrinth.canMove(caseId, action);
 	}
+
+	@Override
+	public void removeBot() {
+		this.bots.removeAll(this.bots);
+	}
 }

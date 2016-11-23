@@ -9,6 +9,8 @@ public interface EngineService {
 
 	public void stop();
 	
+	public void reset();
+	
 	public void addResolver(Resolver resolver);
 	
 	public boolean isFinish();
