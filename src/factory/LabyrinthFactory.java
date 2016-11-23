@@ -8,6 +8,7 @@ import data.Labyrinth;
 import specifications.LabyrinthFactoryService;
 import tools.Action;
 import tools.HardCodedParameters;
+import tools.Type;
 
 public class LabyrinthFactory implements LabyrinthFactoryService {
 
@@ -41,6 +42,9 @@ public class LabyrinthFactory implements LabyrinthFactoryService {
 				i++;
 			}
 		}
+
+		this.labyrinth.getCase(0).setStatus(Type.START);
+		this.labyrinth.getCase(this.labyrinth.getSize()).setStatus(Type.END);
 
 		return labyrinth;
 	}
