@@ -1,5 +1,6 @@
 package factory;
 
+import algorithm.RandomResolver;
 import data.Labyrinth;
 import engine.Engine;
 import specifications.ResolverFactoryService;
@@ -21,7 +22,7 @@ public class ResolverFactory implements ResolverFactoryService {
 				break;
 
 			case RANDOM:
-				break;
+				return new RandomResolver();
 
 			default:
 				return null;
