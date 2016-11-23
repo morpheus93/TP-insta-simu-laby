@@ -39,7 +39,7 @@ public class SmartRandomResolver extends Resolver {
 				break;
 			}
 
-		} while (this.info.canMove(action));
+		} while (!this.info.canMove(action));
 
 		return action;
 	}	
