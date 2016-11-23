@@ -25,6 +25,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+	private AnimationTimer guiTimer;
 
 	/**
 	 * Start method
@@ -63,7 +64,7 @@ public class Main extends Application {
 		primaryStage.show();
 		GameLogs.getInstance().addLog("Displaying window");
 
-		AnimationTimer guiTimer = new AnimationTimer() {
+		guiTimer = new AnimationTimer() {
 			@Override
 			public void handle(long l) {
 				ControlledScreen controller = mainContainer.getCurrentViewController();
@@ -73,6 +74,9 @@ public class Main extends Application {
 					case ScreensController.SCREEN_2_ID:
 						((GameInterface) controller).drawBots();
 						((GameInterface) controller).updateLogs();
+						if (engine.isFinish()) {
+							guiTimer.stop();
+						}
 						break;
 					case ScreensController.SCREEN_3_ID:
 						break;
