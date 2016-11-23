@@ -1,8 +1,10 @@
 package alpha;
 
+import factory.ResolverFactory;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.scene.Group;
+import specifications.ResolverFactoryService;
 import tools.GameLogs;
 import tools.HardCodedParameters;
 
@@ -35,9 +37,11 @@ public class Main extends Application {
 		DataService data = new Data();
 		EngineService engine = new Engine();
 		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
+		ResolverFactoryService resolverFactory = new ResolverFactory();
 
 		((Engine) engine).bindDataService(data);
 		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
+		((Engine) engine).bindResolverFactoryService(resolverFactory);
 
 		data.init();
 		engine.init();
