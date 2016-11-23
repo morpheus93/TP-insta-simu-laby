@@ -13,7 +13,9 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
+import specifications.EngineService;
 import specifications.ReadService;
+import specifications.RequireEngineService;
 import specifications.RequireReadService;
 import tools.GameLogs;
 
@@ -21,7 +23,7 @@ import tools.GameLogs;
  * Class ScreensController
  */
 
-public class ScreensController extends StackPane implements RequireReadService {
+public class ScreensController extends StackPane implements RequireReadService, RequireEngineService {
 
 	private HashMap<String, String> screensURL = new HashMap<>();
 	private HashMap<String, Node> screens = new HashMap<>();
@@ -119,6 +121,15 @@ public class ScreensController extends StackPane implements RequireReadService {
 			controller.bindReadService(service);
 		}
 	}
+
+	@Override
+	public void bindEngineService(EngineService service) {
+		if (screensControllers.get(SCREEN_1_ID) != null) {
+			MenuInterface controller = (MenuInterface) screensControllers.get(SCREEN_1_ID);
+			controller.bindEngineService(service);
+		}
+	}
+
 
 	/**
 	 * Return current interface name

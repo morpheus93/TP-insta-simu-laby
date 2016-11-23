@@ -1,6 +1,7 @@
 package alpha;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.scene.Group;
 import tools.GameLogs;
 import tools.HardCodedParameters;
@@ -45,6 +46,8 @@ public class Main extends Application {
 		mainContainer.loadViews();
 		mainContainer.setScreen(ScreensController.SCREEN_1_ID);
 		mainContainer.bindReadService(data);
+		mainContainer.bindEngineService(engine);
+
 		GameLogs.getInstance().addLog("Displaying menu");
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
@@ -77,5 +80,12 @@ public class Main extends Application {
 			}
 		};
 		guiTimer.start();
+	}
+
+	@Override
+	public void stop() throws Exception {
+		super.stop();
+		// TODO : Quit program
+		Platform.setImplicitExit(true);
 	}
 }
