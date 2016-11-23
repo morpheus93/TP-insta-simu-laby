@@ -1,6 +1,7 @@
 package factory;
 
 import algorithm.RandomResolver;
+import algorithm.SmartRandomResolver;
 import data.Labyrinth;
 import engine.Engine;
 import specifications.ResolverFactoryService;
@@ -16,25 +17,26 @@ public class ResolverFactory implements ResolverFactoryService {
 		
 		switch(resolver) {
 			case ASTAR:
-				resolverService = new RandomResolver();
+				resolverService = new SmartRandomResolver();
 				break;
 
 			case DEPTH_FIRST:
-				resolverService = new RandomResolver();
+				resolverService = new SmartRandomResolver();
 				break;
 
 			case PLEDGE:
-				resolverService = new RandomResolver();
+				resolverService = new SmartRandomResolver();
 				break;
 
 			case RANDOM:
-				resolverService = new RandomResolver();
+				resolverService = new SmartRandomResolver();
 				break;
 				
 			default:
-				resolverService = new RandomResolver();
+				resolverService = new SmartRandomResolver();
 		}
 
+		((algorithm.Resolver) resolverService).bindInfoService(engine);
 		resolverService.init();
 		
 		return resolverService;
