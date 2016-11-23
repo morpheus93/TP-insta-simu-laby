@@ -11,6 +11,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.control.ListView;
+import javafx.scene.paint.Color;
 import specifications.ReadService;
 import specifications.RequireReadService;
 import tools.GameLogs;
@@ -39,6 +40,13 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	private Labyrinth laby;
 
 	private ScreensController screensController;
+
+	private Position latestPositionBot1 = new Position(0, 0);
+
+	private Position latestPositionBot2 = new Position(0, 0);
+
+	private int sizeCell = 0;
+
 
 	/**
 	 * Initializes the controller class.
@@ -78,30 +86,30 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 		this.laby = readService.getLabyrinth();
 		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-		int sizeCell = ((int) canvas1.getWidth() / this.laby.getWidth() - 20);
 		int x = 0;
 		int y = 0;
+		this.sizeCell = ((int) canvas1.getWidth() / this.laby.getWidth() - 20);
 
-		gc1.strokeLine(0, 0, sizeCell * this.laby.getWidth(), 0);
-		gc2.strokeLine(0, 0, sizeCell * this.laby.getWidth(), 0);
-		gc1.strokeLine(0, 0, 0, sizeCell * this.laby.getHeight());
-		gc2.strokeLine(0, 0, 0, sizeCell * this.laby.getHeight());
+		gc1.strokeLine(0, 0, this.sizeCell * this.laby.getWidth(), 0);
+		gc2.strokeLine(0, 0, this.sizeCell * this.laby.getWidth(), 0);
+		gc1.strokeLine(0, 0, 0, this.sizeCell * this.laby.getHeight());
+		gc2.strokeLine(0, 0, 0, this.sizeCell * this.laby.getHeight());
 
 		for (int i = 0; i < this.laby.getSize(); i++) {
 			Case cell = this.laby.getCase(i);
-			x += sizeCell;
+			x += this.sizeCell;
 
 			if (!cell.isRightIsOpen()) {
-				gc1.strokeLine(x, y, x, y + sizeCell);
-				gc2.strokeLine(x, y, x, y + sizeCell);
+				gc1.strokeLine(x, y, x, y + this.sizeCell);
+				gc2.strokeLine(x, y, x, y + this.sizeCell);
 			}
 			if (!cell.isDownIsOpen()) {
-				gc1.strokeLine(x - sizeCell, y + sizeCell, x, y + sizeCell);
-				gc2.strokeLine(x - sizeCell, y + sizeCell, x, y + sizeCell);
+				gc1.strokeLine(x - this.sizeCell, y + this.sizeCell, x, y + this.sizeCell);
+				gc2.strokeLine(x - this.sizeCell, y + this.sizeCell, x, y + this.sizeCell);
 			}
-			if (x == sizeCell * this.laby.getWidth()) {
+			if (x == this.sizeCell * this.laby.getWidth()) {
 				x = 0;
-				y += sizeCell;
+				y += this.sizeCell;
 			}
 		}
 	}
@@ -111,14 +119,25 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
 		Position bot1Position = readService.getBots().get(0).getPosition();
 		Position bot2Position = readService.getBots().get(1).getPosition();
-		int sizeCell = ((int) canvas1.getWidth() / this.laby.getWidth() - 20);
-		int bot1X = bot1Position.getX() * sizeCell + sizeCell / 2;
-		int bot1Y = bot1Position.getY() * sizeCell + sizeCell / 2;
-		int bot2X = bot2Position.getX() * sizeCell + sizeCell / 2;
-		int bot2Y = bot2Position.getY() * sizeCell + sizeCell / 2;
+
+		int bot1X = bot1Position.getX() * this.sizeCell + this.sizeCell / 2;
+		int bot1Y = bot1Position.getY() * this.sizeCell + this.sizeCell / 2;
+		int bot2X = bot2Position.getX() * this.sizeCell + this.sizeCell / 2;
+		int bot2Y = bot2Position.getY() * this.sizeCell + this.sizeCell / 2;
+
+		gc1.setFill(Color.WHITE);
+		gc1.fillOval(latestPositionBot1.getX(), latestPositionBot1.getY(), 10, 10);
+
+		gc1.setFill(Color.BLACK);
 		gc1.fillOval(bot1X, bot1Y, 10, 10);
-		GameLogs.getInstance().addLog("Bot 1 moving");
+
+		gc2.setFill(Color.WHITE);
+		gc2.fillOval(latestPositionBot2.getX(), latestPositionBot2.getY(), 10, 10);
+
+		gc2.setFill(Color.BLACK);
 		gc2.fillOval(bot2X, bot2Y, 10, 10);
-		GameLogs.getInstance().addLog("Bot 2 moving");
+
+		this.latestPositionBot1 = new Position(bot1X, bot1Y);
+		this.latestPositionBot2 = new Position(bot2X, bot2Y);
 	}
 }

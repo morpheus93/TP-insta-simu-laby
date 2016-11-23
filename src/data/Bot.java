@@ -70,7 +70,7 @@ public class Bot {
 			break;
 
 		case LEFT:
-			position.setX(position.getX() + 1);
+			position.setX(position.getX() - 1);
 			break;
 
 		case DOWN:
@@ -78,7 +78,7 @@ public class Bot {
 			break;
 
 		case RIGHT:
-			position.setX(position.getX() - 1);
+			position.setX(position.getX() + 1);
 			break;
 
 		case BACK:
@@ -100,19 +100,19 @@ public class Bot {
 
 		switch (lastAction) {
 		case UP:
-			position.setY(position.getY() - 1);
-			break;
-
-		case LEFT:
-			position.setX(position.getX() - 1);
-			break;
-
-		case DOWN:
 			position.setY(position.getY() + 1);
 			break;
 
-		case RIGHT:
+		case LEFT:
 			position.setX(position.getX() + 1);
+			break;
+
+		case DOWN:
+			position.setY(position.getY() - 1);
+			break;
+
+		case RIGHT:
+			position.setX(position.getX() - 1);
 			break;
 			
 		default:

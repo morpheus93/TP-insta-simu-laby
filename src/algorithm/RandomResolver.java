@@ -16,7 +16,7 @@ public class RandomResolver extends Resolver {
 	@Override
 	public Action step(int currentCaseId) {
 
-		int action = this.random.nextInt(3);
+		int action = this.random.nextInt(4);
 
 		switch(action) {
 		case 0:

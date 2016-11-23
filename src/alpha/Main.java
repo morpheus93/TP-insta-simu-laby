@@ -2,7 +2,6 @@ package alpha;
 
 import factory.ResolverFactory;
 import javafx.animation.AnimationTimer;
-import javafx.application.Platform;
 import javafx.scene.Group;
 import specifications.ResolverFactoryService;
 import tools.GameLogs;
@@ -52,7 +51,6 @@ public class Main extends Application {
 		mainContainer.bindReadService(data);
 		mainContainer.bindEngineService(engine);
 
-		GameLogs.getInstance().addLog("Displaying menu");
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
 		Scene scene = new Scene(root);
