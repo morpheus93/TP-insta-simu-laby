@@ -1,7 +1,7 @@
 package factory;
 
 import algorithm.DepthFirstResolver;
-import algorithm.RandomResolver;
+import algorithm.PledgeResolver;
 import algorithm.SmartRandomResolver;
 import data.Labyrinth;
 import engine.Engine;
@@ -26,7 +26,7 @@ public class ResolverFactory implements ResolverFactoryService {
 				break;
 
 			case PLEDGE:
-				resolverService = new SmartRandomResolver();
+				resolverService = new PledgeResolver();
 				break;
 
 			case RANDOM:

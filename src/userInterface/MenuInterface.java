@@ -34,7 +34,7 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 	public MenuInterface() {
 		this.algoList = new HashMap<>();
 		this.algoList.put("Random", Resolver.RANDOM);
-		this.algoList.put("Pledge", Resolver.PLEDGE);
+		this.algoList.put("Plaidge", Resolver.PLEDGE);
 		this.algoList.put("Dijkstra", Resolver.ASTAR);
 		this.algoList.put("Trémeau", Resolver.DEPTH_FIRST);
 	}

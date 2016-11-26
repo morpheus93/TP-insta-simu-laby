@@ -83,7 +83,7 @@ public class Data implements DataService {
 	@Override
 	public ArrayList<Action> getHistories(int indexBot) {
 		Bot bot = this.getSafeBot(indexBot);
-
+		
 		if (null == bot) {
 			return null; // TODO throw exception
 		}

@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import specifications.InfoService;
 import specifications.RequireInfoService;
 import specifications.ResolverService;
+import tools.Action;
 
 public abstract class Resolver implements ResolverService, RequireInfoService {
 	protected ArrayList<Integer> caseVisited;
@@ -37,5 +38,23 @@ public abstract class Resolver implements ResolverService, RequireInfoService {
 	@Override
 	public void bindInfoService(InfoService info) {
 		this.info = info;
+	}
+	
+	protected boolean allDirectionIsVisited() {
+		
+		ArrayList<Action> directions = new ArrayList<Action>();
+		
+		directions.add(Action.UP);
+		directions.add(Action.DOWN);
+		directions.add(Action.LEFT);
+		directions.add(Action.RIGHT);
+
+		for (Action direction : directions) {
+			if (!this.isVisitedCase(this.info.getCaseIdNeighbor(direction)) && this.info.canMove(direction)) {
+				return false;
+			}			
+		}
+
+		return true;
 	}
 }
