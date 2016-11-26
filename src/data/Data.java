@@ -139,4 +139,17 @@ public class Data implements DataService {
 		
 		return bot.getCountBack();
 	}
+
+	@Override
+	public int getCaseIdNeighbor(int indexBot, Action action) {
+		Position position = this.getSafePosition(indexBot);
+
+		if (null == position) {
+			return -1; // TODO throw exception
+		}
+
+		int indexCurrentCase = this.labyrinth.getIndexByPosition(position);
+		
+		return this.labyrinth.getIndexNeighbor(indexCurrentCase, action);
+	}
 }

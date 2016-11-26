@@ -19,7 +19,9 @@ public interface ReadService {
 	
 	public boolean canMove(int indexBot, Action action);
 
-	int getStepCount();
+	public int getStepCount();
 
-	int getCountBackForBor(int index);
+	public int getCountBackForBor(int index);
+	
+	public int getCaseIdNeighbor(int indexBot, Action action);
 }

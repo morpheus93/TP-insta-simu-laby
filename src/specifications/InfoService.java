@@ -8,4 +8,6 @@ public interface InfoService {
 	public boolean canMove(Action action);
 	
 	public ArrayList<Action> getHistories();
+	
+	int getCaseIdNeighbor(Action action);
 }

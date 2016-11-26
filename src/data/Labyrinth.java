@@ -76,6 +76,11 @@ public class Labyrinth {
 
 		return new Case(-1, false, false, Type.NOTHING);
 	}
+	
+	public int getIndexByPosition(Position position)
+	{
+		return position.getY() * this.height + position.getX();
+	}
 
 	public int getIndexNeighbor(int indexCase, Action direction) {
 		switch (direction) {

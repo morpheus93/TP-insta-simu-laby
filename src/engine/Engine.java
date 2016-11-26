@@ -160,8 +160,13 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		Bot bot = new Bot(0, 0);
 		data.addBot(bot);
 	}
-	
+
 	public boolean isFinish() {
 		return this.isFinish;
+	}
+
+	@Override
+	public int getCaseIdNeighbor(Action action) {
+		return this.data.getCaseIdNeighbor(this.currentIndexBot, action);
 	}
 }
