@@ -28,7 +28,6 @@
                         <ComboBox fx:id="comboBoxAlgo1" prefWidth="150.0" promptText="Algorithme 1">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Dijkstra"/>
                                     <String fx:value="Trémeau"/>
                                     <String fx:value="Pledge"/>
                                     <String fx:value="Random"/>
@@ -38,7 +37,6 @@
                         <ComboBox fx:id="comboBoxAlgo2" prefWidth="150.0" promptText="Algorihtme 2">
                             <items>
                                 <FXCollections fx:factory="observableArrayList">
-                                    <String fx:value="Dijkstra"/>
                                     <String fx:value="Trémeau"/>
                                     <String fx:value="Pledge"/>
                                     <String fx:value="Random"/>
