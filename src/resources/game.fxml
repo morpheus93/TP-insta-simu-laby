@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
 <?import javafx.scene.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
@@ -7,60 +9,78 @@
 <?import javafx.scene.canvas.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0"
-            xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="userInterface.GameInterface">
+<AnchorPane id="AnchorPane" maxHeight="600.0" maxWidth="800.0" minHeight="600.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="userInterface.GameInterface">
     <children>
-        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+        <VBox alignment="CENTER" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox maxHeight="265.0" maxWidth="800.0" minHeight="265.0" minWidth="800.0">
                     <children>
                         <Canvas fx:id="canvas1" height="255.0" width="380.0">
                             <HBox.margin>
-                                <Insets left="10.0" right="10.0" top="10.0"/>
+                                <Insets left="10.0" right="10.0" top="10.0" />
                             </HBox.margin>
                         </Canvas>
-                        <LineChart fx:id="statsContainer" prefHeight="250.0" prefWidth="400">
-                            <xAxis>
-                                <CategoryAxis label="Bottom" side="BOTTOM"/>
-                            </xAxis>
-                            <yAxis>
-                                <NumberAxis label="Left" side="LEFT">
-                                    <padding>
-                                        <Insets top="10.0"/>
-                                    </padding>
-                                </NumberAxis>
-                            </yAxis>
-                            <HBox.margin>
-                                <Insets left="10.0" right="10.0"/>
-                            </HBox.margin>
-                        </LineChart>
+                  <VBox prefHeight="250.0" prefWidth="400.0">
+                     <HBox.margin>
+                        <Insets left="10.0" right="10.0" top="10.0" />
+                     </HBox.margin>
+                     <children>
+                        <Label fx:id="label_up" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Up" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_down" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Down" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_right" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Right" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_left" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Left" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_back" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Back" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                        <Label fx:id="label_lap" alignment="CENTER" contentDisplay="CENTER" prefHeight="25.0" prefWidth="390.0" text="Lap" textAlignment="CENTER">
+                           <font>
+                              <Font size="18.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
                     </children>
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                 </HBox>
                 <HBox maxHeight="265.0" maxWidth="800.0" minHeight="265.0" minWidth="800.0">
                     <VBox.margin>
-                        <Insets bottom="10.0"/>
+                        <Insets bottom="10.0" />
                     </VBox.margin>
                     <children>
                         <Canvas fx:id="canvas2" height="255.0" width="380.0">
                             <HBox.margin>
-                                <Insets left="10.0" top="10.0"/>
+                                <Insets left="10.0" top="10.0" />
                             </HBox.margin>
                         </Canvas>
-                        <ListView fx:id="logContainer" maxHeight="275.0" maxWidth="400" minHeight="250.0"
-                                  minWidth="400.0" HBox.hgrow="ALWAYS">
+                        <ListView fx:id="logContainer" maxHeight="275.0" maxWidth="400" minHeight="250.0" minWidth="400.0" HBox.hgrow="ALWAYS">
                             <cursor>
-                                <Cursor fx:constant="MOVE"/>
+                                <Cursor fx:constant="MOVE" />
                             </cursor>
                             <HBox.margin>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </HBox.margin>
                             <padding>
-                                <Insets bottom="10.0"/>
+                                <Insets bottom="10.0" />
                             </padding>
                         </ListView>
                     </children>
@@ -69,13 +89,13 @@
                     <children>
                         <Button fx:id="replay_btn" mnemonicParsing="false" onAction="#replayGame" text="Rejouer">
                             <HBox.margin>
-                                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                                <Insets bottom="10.0" left="10.0" right="10.0" />
                             </HBox.margin>
                         </Button>
-                        <Button fx:id="quit_btn" mnemonicParsing="false" onAction="#quitGame" text="Quitter"/>
+                        <Button fx:id="quit_btn" mnemonicParsing="false" onAction="#quitGame" text="Quitter" />
                     </children>
                     <VBox.margin>
-                        <Insets bottom="22.0"/>
+                        <Insets bottom="22.0" />
                     </VBox.margin>
                 </HBox>
             </children>

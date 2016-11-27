@@ -13,12 +13,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.paint.Color;
 import specifications.EngineService;
 import specifications.ReadService;
 import specifications.RequireEngineService;
 import specifications.RequireReadService;
+import tools.Action;
 import tools.GameLogs;
 
 import java.net.URL;
@@ -30,9 +32,6 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	public Canvas canvas1;
 
 	@FXML
-	public LineChart<String, Double> statsContainer;
-
-	@FXML
 	public Canvas canvas2;
 
 	@FXML
@@ -40,6 +39,24 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	@FXML
 	public Button quit_btn;
+
+	@FXML
+	public Label label_down;
+
+	@FXML
+	public Label label_up;
+
+	@FXML
+	public Label label_right;
+
+	@FXML
+	public Label label_left;
+
+	@FXML
+	public Label label_back;
+
+	@FXML
+	public Label label_lap;
 
 	private ObservableList<String> logs = FXCollections.observableArrayList();
 
@@ -55,10 +72,6 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	private int sizeCell = 0;
 
-	private XYChart.Series seriesBot1 = new XYChart.Series<>();
-
-	private XYChart.Series seriesBot2 = new XYChart.Series<>();
-
 	private Labyrinth laby;
 
 	/**
@@ -66,9 +79,6 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	 */
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		statsContainer.setData(this.updateStats());
-		statsContainer.setTitle("Chart");
-
 	}
 
 	@Override
@@ -97,28 +107,37 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	/**
 	 *
 	 */
-	public ObservableList<XYChart.Series<String, Double>> updateStats() {
-		double aValue = 1.56;
-		double cValue = 1.06;
-		ObservableList<XYChart.Series<String, Double>> answer = FXCollections.observableArrayList();
-		XYChart.Series<String, Double> aSeries = new XYChart.Series<>();
-		XYChart.Series<String, Double> cSeries = new XYChart.Series<>();
+	public void updateStats() {
+		int upBot1 = this.readService.getCountMoveForBot(0, Action.UP);
+		int upBot2 = this.readService.getCountMoveForBot(1, Action.UP);
 
-		for (int i = 2011; i < 2021; i++) {
-			aSeries.getData().add(new XYChart.Data(Integer.toString(i), aValue));
-			aValue = aValue + Math.random() - .5;
-			cSeries.getData().add(new XYChart.Data(Integer.toString(i), cValue));
-			cValue = cValue + Math.random() - .5;
-		}
-		answer.addAll(aSeries, cSeries);
-		return answer;
+		int downBot1 = this.readService.getCountMoveForBot(0, Action.DOWN);
+		int downBot2 = this.readService.getCountMoveForBot(1, Action.DOWN);
+
+		int leftBot1 = this.readService.getCountMoveForBot(0, Action.LEFT);
+		int leftBot2 = this.readService.getCountMoveForBot(1, Action.LEFT);
+
+		int rightBot1 = this.readService.getCountMoveForBot(0, Action.RIGHT);
+		int rightBot2 = this.readService.getCountMoveForBot(1, Action.RIGHT);
+
+		int backBot1 = this.readService.getCountMoveForBot(0, Action.BACK);
+		int backBot2 = this.readService.getCountMoveForBot(1, Action.BACK);
+
+		int countLaps = this.readService.getStepCount();
+
+		this.label_up.setText("UP Action Bot 1 : " + upBot1 + " Bot 2 : " + upBot2);
+		this.label_down.setText("DOWN Action Bot 1 : " + downBot1 + " Bot 2 : " + downBot2);
+		this.label_left.setText("LEFT Action Bot 1 : " + leftBot1 + " Bot 2 : " + leftBot2);
+		this.label_right.setText("RIGHT Action Bot 1 : " + rightBot1 + " Bot 2 : " + rightBot2);
+		this.label_back.setText("BACK Action Bot 1 : " + backBot1 + " Bot 2 : " + backBot2);
+		this.label_lap.setText("Lap N° : " + countLaps);
 	}
 
 	/**
 	 * Draw Labyrinth
 	 */
 	private void drawLabyrinth() {
-		
+
 		GameLogs.getInstance().addLog("Drawing labyrinth");
 		this.laby = this.readService.getLabyrinth();
 		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
@@ -201,11 +220,11 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	public void replayGame(ActionEvent actionEvent) {
 		this.screensController.setScreen("menu");
-		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
+		/*GraphicsContext gc1 = canvas1.getGraphicsContext2D();
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
 		gc1.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
 		gc2.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
-		this.screensController.unloadScreen(ScreensController.SCREEN_2_ID);
+		*/
 		this.engineService.reset();
 	}
 }
