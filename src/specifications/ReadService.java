@@ -13,7 +13,7 @@ public interface ReadService {
 	
 	public int getCaseId(int indexBot);
 	
-	public ArrayList<Action> getHistories(int indexBot);
+	public ArrayList<Action> getHistories(int indexBot, boolean all);
 	
 	public int getCountBot();
 	
@@ -24,5 +24,6 @@ public interface ReadService {
 	public int getCountBackForBot(int index);
 	
 	public int getCaseIdNeighbor(int indexBot, Action action);
-	
+
+	public int getCountMoveForBot(int index, Action direction);
 }

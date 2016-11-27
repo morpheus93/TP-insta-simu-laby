@@ -116,6 +116,7 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	 * Draw Labyrinth
 	 */
 	private void drawLabyrinth() {
+		
 		GameLogs.getInstance().addLog("Drawing labyrinth");
 		Labyrinth laby = readService.getLabyrinth();
 		GraphicsContext gc1 = canvas1.getGraphicsContext2D();

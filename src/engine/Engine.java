@@ -139,7 +139,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 
 	@Override
 	public ArrayList<Action> getHistories() {
-		return this.data.getHistories(this.currentIndexBot);
+		return this.data.getHistories(this.currentIndexBot, false);
 	}
 
 	@Override

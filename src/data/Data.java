@@ -81,11 +81,15 @@ public class Data implements DataService {
 	}
 
 	@Override
-	public ArrayList<Action> getHistories(int indexBot) {
+	public ArrayList<Action> getHistories(int indexBot, boolean all) {
 		Bot bot = this.getSafeBot(indexBot);
 		
 		if (null == bot) {
 			return null;
+		}
+
+		if (all) {
+			return bot.getAllHistories();
 		}
 		
 		return bot.getHistories();
@@ -151,5 +155,21 @@ public class Data implements DataService {
 		int indexCurrentCase = this.labyrinth.getIndexByPosition(position);
 		
 		return this.labyrinth.getIndexNeighbor(indexCurrentCase, action);
+	}
+
+	@Override
+	public int getCountMoveForBot(int index, Action direction) {
+
+		int count = 0;
+
+		ArrayList<Action> histories = this.getHistories(index, true);
+		
+		for (Action historie : histories) {
+			if (historie == direction) {
+				count++;
+			}
+		}
+		
+		return count;
 	}
 }

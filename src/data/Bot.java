@@ -12,6 +12,7 @@ public class Bot {
 	private int countBack;
 	private String name;
 	private ArrayList<Action> histories;
+	private ArrayList<Action> allHistories;
 
 	public Bot(final int x, final int y) {
 		this.nbStep = 0;
@@ -62,6 +63,9 @@ public class Bot {
 	}
 
 	public void move(Action action) {
+		
+		this.allHistories.add(action);
+		
 		if (Action.BACK != action) {
 			this.histories.add(action);
 		}
@@ -128,5 +132,9 @@ public class Bot {
 
 	public int getCountBack() {
 		return this.countBack;
+	}
+	
+	public ArrayList<Action> getAllHistories() {
+		return this.allHistories;
 	}
 }
