@@ -13,14 +13,10 @@ public class ResolverFactory implements ResolverFactoryService {
 
 	@Override
 	public ResolverService getResolver(Resolver resolver, Labyrinth labyrinth, Engine engine) {
-		
-		ResolverService resolverService;
-		
-		switch(resolver) {
-			case ASTAR:
-				resolverService = new SmartRandomResolver();
-				break;
 
+		ResolverService resolverService;
+
+		switch(resolver) {
 			case DEPTH_FIRST:
 				resolverService = new DepthFirstResolver();
 				break;
