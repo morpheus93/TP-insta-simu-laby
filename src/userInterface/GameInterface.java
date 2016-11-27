@@ -1,5 +1,6 @@
 package userInterface;
 
+import alpha.Main;
 import data.Case;
 import data.Labyrinth;
 import data.Position;
@@ -10,8 +11,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.chart.LineChart;
-import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -73,6 +72,9 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	private int sizeCell = 0;
 
 	private Labyrinth laby;
+
+
+	private Boolean engineIsFinish = false;
 
 	/**
 	 * Initializes the controller class.
@@ -205,6 +207,7 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 			if (bot2Position.getX() == this.laby.getWidth() - 1 && bot2Position.getY() == this.laby.getHeight() - 1) {
 				GameLogs.getInstance().addLog("Bot #2 won");
 			}
+			this.engineIsFinish = true;
 			GameLogs.getInstance().addLog("Replay ?");
 		}
 	}
@@ -221,5 +224,9 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	public void replayGame(ActionEvent actionEvent) {
 		this.screensController.setScreen("menu");
 		this.engineService.reset();
+	}
+
+	public boolean isFinish(){
+		return this.engineIsFinish;
 	}
 }

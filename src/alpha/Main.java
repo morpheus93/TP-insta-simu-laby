@@ -1,8 +1,6 @@
 package alpha;
 
 import factory.ResolverFactory;
-import javafx.animation.AnimationTimer;
-import javafx.scene.Group;
 import specifications.ResolverFactoryService;
 import tools.GameLogs;
 import tools.HardCodedParameters;
@@ -19,8 +17,8 @@ import userInterface.*;
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-
-import java.util.Objects;
+import javafx.animation.AnimationTimer;
+import javafx.scene.Group;
 
 public class Main extends Application {
 
@@ -53,9 +51,9 @@ public class Main extends Application {
 
 		mainContainer.loadViews();
 		mainContainer.setScreen(ScreensController.SCREEN_1_ID);
-		mainContainer.bindMainInstance(this);
 		mainContainer.bindReadService(data);
 		mainContainer.bindEngineService(engine);
+		mainContainer.bindMainInstance(this);
 
 		Group root = new Group();
 		root.getChildren().addAll(mainContainer);
@@ -70,23 +68,24 @@ public class Main extends Application {
 		GameLogs.getInstance().addLog("Displaying window");
 	}
 
-	public void startAnimationTimer() {
-		Main mainClass = this;
+	public void stopAnimationTimer(){
+		this.guiTimer.stop();
+	}
 
+	public void startAnimationTimer() {
 		guiTimer = new AnimationTimer() {
 			@Override
 			public void handle(long l) {
 				ControlledScreen controller = mainContainer.getCurrentViewController();
 				switch (mainContainer.getCurrentView()) {
 					case ScreensController.SCREEN_1_ID:
-						((MenuInterface) controller).bindMainClass(mainClass);
 						break;
 					case ScreensController.SCREEN_2_ID:
 						((GameInterface) controller).drawBots();
 						((GameInterface) controller).updateLogs();
 						((GameInterface) controller).updateStats();
-						if (engine.isFinish()) {
-							guiTimer.stop();
+						if (((GameInterface) controller).isFinish()) {
+							stopAnimationTimer();
 						}
 						break;
 					default:

@@ -71,12 +71,13 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 		if (hasSelectedAlgo) {
 			errorMessage.setVisible(false);
 			this.screensController.reloadView(ScreensController.SCREEN_2_ID);
+			screensController.setScreen(ScreensController.SCREEN_2_ID);
+
 			GameLogs.getInstance().addLog("Algorithms selected");
 			GameLogs.getInstance().addLog("Algorithms 1 is " + algo1);
 			GameLogs.getInstance().addLog("Algorithms 2 is " + algo2);
 			this.engine.addResolver(this.algoList.get(algo1));
 			this.engine.addResolver(this.algoList.get(algo2));
-			screensController.setScreen(ScreensController.SCREEN_2_ID);
 			this.engine.start();
 			this.mainClass.startAnimationTimer();
 			GameLogs.getInstance().addLog("Engine is started");
