@@ -47,8 +47,8 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 		this.isFinish = false;
 		this.resolvers.removeAll(this.resolvers);
 		this.data.reset();
-		this.data.setLabyrinth(this.labyrinthFactory.getLabyrinth());	
 		this.stop();
+		this.init();
 	}
 
 	@Override
