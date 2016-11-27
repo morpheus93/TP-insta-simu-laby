@@ -1,5 +1,6 @@
 package userInterface;
 
+import alpha.Main;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -27,6 +28,8 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 
 	@FXML
 	private Label errorMessage;
+
+	private Main mainClass;
 
 
 	private final HashMap<String, Resolver> algoList;
@@ -66,8 +69,8 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 		}
 
 		if (hasSelectedAlgo) {
-			this.screensController.reloadView(ScreensController.SCREEN_2_ID);
 			errorMessage.setVisible(false);
+			this.screensController.reloadView(ScreensController.SCREEN_2_ID);
 			GameLogs.getInstance().addLog("Algorithms selected");
 			GameLogs.getInstance().addLog("Algorithms 1 is " + algo1);
 			GameLogs.getInstance().addLog("Algorithms 2 is " + algo2);
@@ -75,6 +78,7 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 			this.engine.addResolver(this.algoList.get(algo2));
 			screensController.setScreen(ScreensController.SCREEN_2_ID);
 			this.engine.start();
+			this.mainClass.startAnimationTimer();
 			GameLogs.getInstance().addLog("Engine is started");
 		}
 	}
@@ -84,5 +88,9 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 		if (service != null) {
 			this.engine = service;
 		}
+	}
+
+	public void bindMainClass(Main main){
+		this.mainClass = main;
 	}
 }

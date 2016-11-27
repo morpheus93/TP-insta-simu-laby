@@ -20,6 +20,8 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 
+import java.util.Objects;
+
 public class Main extends Application {
 
 	public static void main(String[] args) {
@@ -27,6 +29,9 @@ public class Main extends Application {
 	}
 
 	private AnimationTimer guiTimer;
+
+	private ScreensController mainContainer = new ScreensController();
+	private EngineService engine;
 
 	/**
 	 * Start method
@@ -36,10 +41,9 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		DataService data = new Data();
-		EngineService engine = new Engine();
+		this.engine = new Engine();
 		LabyrinthFactoryService labyrinthFactory = new LabyrinthFactory();
 		ResolverFactoryService resolverFactory = new ResolverFactory();
-
 		((Engine) engine).bindDataService(data);
 		((Engine) engine).bindLabyrinthFactoryService(labyrinthFactory);
 		((Engine) engine).bindResolverFactoryService(resolverFactory);
@@ -47,9 +51,9 @@ public class Main extends Application {
 		data.init();
 		engine.init();
 
-		ScreensController mainContainer = new ScreensController();
 		mainContainer.loadViews();
 		mainContainer.setScreen(ScreensController.SCREEN_1_ID);
+		mainContainer.bindMainInstance(this);
 		mainContainer.bindReadService(data);
 		mainContainer.bindEngineService(engine);
 
@@ -64,6 +68,10 @@ public class Main extends Application {
 		primaryStage.setMaxWidth(HardCodedParameters.defaultWidth);
 		primaryStage.show();
 		GameLogs.getInstance().addLog("Displaying window");
+	}
+
+	public void startAnimationTimer() {
+		Main mainClass = this;
 
 		guiTimer = new AnimationTimer() {
 			@Override
@@ -71,6 +79,7 @@ public class Main extends Application {
 				ControlledScreen controller = mainContainer.getCurrentViewController();
 				switch (mainContainer.getCurrentView()) {
 					case ScreensController.SCREEN_1_ID:
+						((MenuInterface) controller).bindMainClass(mainClass);
 						break;
 					case ScreensController.SCREEN_2_ID:
 						((GameInterface) controller).drawBots();
@@ -94,4 +103,5 @@ public class Main extends Application {
 		super.stop();
 		System.exit(0);
 	}
+
 }

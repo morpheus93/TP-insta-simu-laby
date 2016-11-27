@@ -138,6 +138,13 @@ public class ScreensController extends StackPane implements RequireReadService, 
 		}
 	}
 
+	public void bindMainInstance(alpha.Main main) {
+		if (screensControllers.get(SCREEN_1_ID) != null) {
+			MenuInterface controller = (MenuInterface) screensControllers.get(SCREEN_1_ID);
+			controller.bindMainClass(main);
+		}
+	}
+
 	@Override
 	public void bindReadService(ReadService service) {
 		this.readService = service;
