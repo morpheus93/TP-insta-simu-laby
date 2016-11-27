@@ -20,6 +20,7 @@ public class Bot {
 		this.position = new Position(x, y);
 		this.name = "Bot #" + Integer.toString(Bot.countBot);
 		this.histories = new ArrayList<Action>();
+		this.allHistories = new ArrayList<Action>();
 
 		Bot.countBot++;
 	}
