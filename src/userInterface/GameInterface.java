@@ -220,11 +220,6 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	public void replayGame(ActionEvent actionEvent) {
 		this.screensController.setScreen("menu");
-		/*GraphicsContext gc1 = canvas1.getGraphicsContext2D();
-		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
-		gc1.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
-		gc2.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
-		*/
 		this.engineService.reset();
 	}
 }
