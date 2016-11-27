@@ -120,7 +120,7 @@ public class Bot {
 			break;
 			
 		default:
-			// TODO throw exception (Should be never reached)
+			break;
 		}
 
 		this.removeAction();

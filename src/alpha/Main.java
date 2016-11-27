@@ -25,6 +25,7 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
+
 	private AnimationTimer guiTimer;
 
 	/**
@@ -74,11 +75,10 @@ public class Main extends Application {
 					case ScreensController.SCREEN_2_ID:
 						((GameInterface) controller).drawBots();
 						((GameInterface) controller).updateLogs();
+						((GameInterface) controller).updateStats();
 						if (engine.isFinish()) {
 							guiTimer.stop();
 						}
-						break;
-					case ScreensController.SCREEN_3_ID:
 						break;
 					default:
 						GameLogs.getInstance().addLog("Unknown view");

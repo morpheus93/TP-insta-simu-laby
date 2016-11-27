@@ -39,7 +39,6 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 		this.algoList.put("Trémeau", Resolver.DEPTH_FIRST);
 	}
 
-
 	/**
 	 * Initializes the controller class.
 	 */

@@ -21,7 +21,8 @@ public interface ReadService {
 
 	public int getStepCount();
 
-	public int getCountBackForBor(int index);
+	public int getCountBackForBot(int index);
 	
 	public int getCaseIdNeighbor(int indexBot, Action action);
+	
 }

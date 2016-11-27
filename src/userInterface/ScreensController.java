@@ -30,23 +30,23 @@ public class ScreensController extends StackPane implements RequireReadService, 
 	private HashMap<String, ControlledScreen> screensControllers = new HashMap<>();
 	private String currentView = null;
 
+	private EngineService engineService;
+
+	private ReadService readService;
+
 	private final static String SCREEN_1_FILE = "/resources/menu.fxml";
 	private final static String SCREEN_2_FILE = "/resources/game.fxml";
-	private final static String SCREEN_3_FILE = "/resources/credits.fxml";
 
 	public final static String SCREEN_1_ID = "menu";
 	public final static String SCREEN_2_ID = "game";
-	public final static String SCREEN_3_ID = "credits";
 
 	/**
 	 * Constructor
 	 */
 	public ScreensController() {
 		super();
-		System.out.println(System.getProperty("user.dir"));
 		screensURL.put(SCREEN_1_ID, SCREEN_1_FILE);
 		screensURL.put(SCREEN_2_ID, SCREEN_2_FILE);
-		screensURL.put(SCREEN_3_ID, SCREEN_3_FILE);
 	}
 
 	/**
@@ -57,6 +57,7 @@ public class ScreensController extends StackPane implements RequireReadService, 
 		for (Map.Entry<String, String> viewURL : screensURL.entrySet()) {
 			String name = viewURL.getKey();
 			String url = viewURL.getValue();
+			if (screens.containsKey(name)) continue;
 			try {
 				FXMLLoader myLoader = new FXMLLoader(this.getClass().getResource(url));
 				Parent loadScreen = myLoader.load();
@@ -68,6 +69,17 @@ public class ScreensController extends StackPane implements RequireReadService, 
 				System.out.println(e.getMessage());
 			}
 		}
+	}
+
+	/**
+	 * Reload view
+	 * @param viewName String
+	 */
+	public void reloadView(String viewName) {
+		this.unloadScreen(viewName);
+		this.loadViews();
+		this.bindReadService(this.readService);
+		this.bindEngineService(this.engineService);
 	}
 
 	/**
@@ -114,8 +126,21 @@ public class ScreensController extends StackPane implements RequireReadService, 
 		}
 	}
 
+	/**
+	 * This method will remove the screen with the given name from the collection of screens
+	 */
+	public boolean unloadScreen(String name) {
+		if (screens.remove(name) == null) {
+			System.out.println("Screen didn't exist");
+			return false;
+		} else {
+			return true;
+		}
+	}
+
 	@Override
 	public void bindReadService(ReadService service) {
+		this.readService = service;
 		if (screensControllers.get(SCREEN_2_ID) != null) {
 			GameInterface controller = (GameInterface) screensControllers.get(SCREEN_2_ID);
 			controller.bindReadService(service);
@@ -124,12 +149,17 @@ public class ScreensController extends StackPane implements RequireReadService, 
 
 	@Override
 	public void bindEngineService(EngineService service) {
+		this.engineService = service;
 		if (screensControllers.get(SCREEN_1_ID) != null) {
 			MenuInterface controller = (MenuInterface) screensControllers.get(SCREEN_1_ID);
 			controller.bindEngineService(service);
 		}
-	}
 
+		if (screensControllers.get(SCREEN_2_ID) != null) {
+			GameInterface controller = (GameInterface) screensControllers.get(SCREEN_2_ID);
+			controller.bindEngineService(service);
+		}
+	}
 
 	/**
 	 * Return current interface name

@@ -62,7 +62,7 @@ public class Engine implements EngineService, RequireDataService, RequireResolve
 
 					Action action = resolver.step(currentCaseId);
 					
-					log(action);
+					// log(action); // TODO : Fix logs error
 
 					if (data.canMove(currentIndexBot, action)) {
 						data.moveBot(currentIndexBot, action);

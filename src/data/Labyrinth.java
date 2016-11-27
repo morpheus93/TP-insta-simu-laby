@@ -31,7 +31,7 @@ public class Labyrinth {
 		int index = position.getY() * this.width + position.getX();
 		
 		if (this.cases.size() <= index) {
-			return -1; // TODO throw exception
+			return -1;
 		}
 		
 		return this.cases.get(index).getId();

@@ -35,7 +35,7 @@ public class Data implements DataService {
 		Bot bot = this.getSafeBot(indexBot);
 
 		if (null == bot) {
-			// TODO throw exception
+			return;
 		}
 		
 		bot.move(action);
@@ -56,7 +56,7 @@ public class Data implements DataService {
 		Position position = this.getSafePosition(indexBot);
 
 		if (null == position) {
-			return -1; // TODO throw exception
+			return -1;
 		}
 		
 		return this.labyrinth.getCaseId(position);
@@ -66,7 +66,7 @@ public class Data implements DataService {
 		Bot bot = this.getSafeBot(indexBot);
 		
 		if (null == bot) {
-			return null; // TODO throw exception
+			return null;
 		}
 
 		return this.bots.get(indexBot).getPosition();
@@ -74,7 +74,7 @@ public class Data implements DataService {
 	
 	private Bot getSafeBot(int indexBot) {
 		if (indexBot < 0 || this.bots.size() <= indexBot) {
-			return null; // TODO throw exception
+			return null;
 		}
 
 		return this.bots.get(indexBot);
@@ -85,7 +85,7 @@ public class Data implements DataService {
 		Bot bot = this.getSafeBot(indexBot);
 		
 		if (null == bot) {
-			return null; // TODO throw exception
+			return null;
 		}
 		
 		return bot.getHistories();
@@ -101,7 +101,7 @@ public class Data implements DataService {
 		int caseId = this.getCaseId(indexBot);
 
 		if (-1 == caseId) {
-			return false; // TODO throw exception
+			return false;
 		}
 		
 		return this.labyrinth.canMove(caseId, action);
@@ -130,7 +130,7 @@ public class Data implements DataService {
 	}
 	
 	@Override
-	public int getCountBackForBor(int index) {
+	public int getCountBackForBot(int index) {
 		Bot bot = this.getSafeBot(index);
 		
 		if (null == bot) {
@@ -145,7 +145,7 @@ public class Data implements DataService {
 		Position position = this.getSafePosition(indexBot);
 
 		if (null == position) {
-			return -1; // TODO throw exception
+			return -1;
 		}
 
 		int indexCurrentCase = this.labyrinth.getIndexByPosition(position);
