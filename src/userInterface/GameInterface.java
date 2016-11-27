@@ -59,6 +59,8 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	private XYChart.Series seriesBot2 = new XYChart.Series<>();
 
+	private Labyrinth laby;
+
 	/**
 	 * Initializes the controller class.
 	 */
@@ -118,7 +120,7 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 	private void drawLabyrinth() {
 		
 		GameLogs.getInstance().addLog("Drawing labyrinth");
-		Labyrinth laby = readService.getLabyrinth();
+		this.laby = this.readService.getLabyrinth();
 		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
 		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
 		int x = 0;
@@ -176,6 +178,14 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 		this.latestPositionBot2 = new Position(bot2X, bot2Y);
 
 		if (this.engineService.isFinish()) {
+
+			if (bot1Position.getX() == this.laby.getWidth() - 1 && bot1Position.getY() == this.laby.getHeight() - 1) {
+				GameLogs.getInstance().addLog("Bot #1 won");
+			}
+
+			if (bot2Position.getX() == this.laby.getWidth() - 1 && bot2Position.getY() == this.laby.getHeight() - 1) {
+				GameLogs.getInstance().addLog("Bot #2 won");
+			}
 			GameLogs.getInstance().addLog("Replay ?");
 		}
 	}
@@ -187,5 +197,15 @@ public class GameInterface implements Initializable, ControlledScreen, RequireRe
 
 	public void quitGame(ActionEvent actionEvent) {
 		System.exit(0);
+	}
+
+	public void replayGame(ActionEvent actionEvent) {
+		this.screensController.setScreen("menu");
+		GraphicsContext gc1 = canvas1.getGraphicsContext2D();
+		GraphicsContext gc2 = canvas2.getGraphicsContext2D();
+		gc1.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
+		gc2.clearRect(0, 0, canvas1.getWidth(), canvas1.getHeight());
+		this.screensController.unloadScreen(ScreensController.SCREEN_2_ID);
+		this.engineService.reset();
 	}
 }

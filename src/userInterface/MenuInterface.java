@@ -34,7 +34,7 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 	public MenuInterface() {
 		this.algoList = new HashMap<>();
 		this.algoList.put("Random", Resolver.RANDOM);
-		this.algoList.put("Plaidge", Resolver.PLEDGE);
+		this.algoList.put("Pledge", Resolver.PLEDGE);
 		this.algoList.put("Trémeau", Resolver.DEPTH_FIRST);
 	}
 
@@ -66,6 +66,7 @@ public class MenuInterface implements Initializable, ControlledScreen, RequireEn
 		}
 
 		if (hasSelectedAlgo) {
+			this.screensController.reloadView(ScreensController.SCREEN_2_ID);
 			errorMessage.setVisible(false);
 			GameLogs.getInstance().addLog("Algorithms selected");
 			GameLogs.getInstance().addLog("Algorithms 1 is " + algo1);

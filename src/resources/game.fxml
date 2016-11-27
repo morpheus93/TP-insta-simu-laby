@@ -66,10 +66,17 @@
                     </children>
                 </HBox>
                 <HBox maxHeight="30.0" maxWidth="800.0" minHeight="30.0" minWidth="800.0">
+                    <children>
+                        <Button fx:id="replay_btn" mnemonicParsing="false" onAction="#replayGame" text="Rejouer">
+                            <HBox.margin>
+                                <Insets bottom="10.0" left="10.0" right="10.0"/>
+                            </HBox.margin>
+                        </Button>
+                        <Button fx:id="quit_btn" mnemonicParsing="false" onAction="#quitGame" text="Quitter"/>
+                    </children>
                     <VBox.margin>
                         <Insets bottom="22.0"/>
                     </VBox.margin>
-                    <Button fx:id="quit_btn" mnemonicParsing="false" onAction="#quitGame" text="Quitter"/>
                 </HBox>
             </children>
         </VBox>
