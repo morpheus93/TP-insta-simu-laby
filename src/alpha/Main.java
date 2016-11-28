@@ -73,7 +73,7 @@ public class Main extends Application {
 	}
 
 	public void startAnimationTimer() {
-		guiTimer = new AnimationTimer() {
+		this.guiTimer = new AnimationTimer() {
 			@Override
 			public void handle(long l) {
 				ControlledScreen controller = mainContainer.getCurrentViewController();
@@ -94,7 +94,7 @@ public class Main extends Application {
 				}
 			}
 		};
-		guiTimer.start();
+		this.guiTimer.start();
 	}
 
 	@Override
